@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Remember Me Not? - Claude Max Pitch</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=Inter:wght@400;500;600&display=swap');
+
+        :root {
+            --bg-base: #0f111a;
+            --bg-gradient: radial-gradient(circle at top right, #1f2335, #0f111a);
+            --text-primary: #ffffff;
+            --text-secondary: #94a3b8;
+            --accent-1: #d97757;
+            /* Claude-like orange/coral */
+            --accent-2: #e09f5b;
+            --accent-3: #6366f1;
+            /* Indigo */
+            --card-bg: rgba(30, 33, 43, 0.6);
+            --card-border: rgba(217, 119, 87, 0.2);
+            --font-heading: 'Outfit', sans-serif;
+            --font-body: 'Inter', sans-serif;
+            --transition: 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: var(--font-body);
+            background: var(--bg-base);
+            background-image: var(--bg-gradient);
+            color: var(--text-primary);
+            overflow: hidden;
+            height: 100vh;
+            width: 100vw;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .presentation {
+            flex-grow: 1;
+            position: relative;
+            width: 100%;
+            height: 100%;
+        }
+
+        .slide {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            padding: 5rem 8%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            opacity: 0;
+            visibility: hidden;
+            transform: scale(0.98) translateY(20px);
+            transition: opacity var(--transition), transform var(--transition), visibility var(--transition);
+            z-index: 1;
+        }
+
+        .slide.active {
+            opacity: 1;
+            visibility: visible;
+            transform: scale(1) translateY(0);
+            z-index: 10;
+        }
+
+        /* Typography */
+        h1 {
+            font-family: var(--font-heading);
+            font-size: 5.5rem;
+            font-weight: 800;
+            line-height: 1.1;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, var(--text-primary), #fcd34d);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        h2 {
+            font-family: var(--font-heading);
+            font-size: 3.5rem;
+            font-weight: 800;
+            margin-bottom: 2.5rem;
+            position: relative;
+            display: inline-block;
+        }
+
+        h2::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 60px;
+            height: 4px;
+            background: linear-gradient(90deg, var(--accent-1), var(--accent-2));
+            border-radius: 2px;
+        }
+
+        h3 {
+            font-family: var(--font-heading);
+            font-size: 1.8rem;
+            font-weight: 600;
+            margin-bottom: 1.2rem;
+            color: #e2e8f0;
+        }
+
+        p,
+        li {
+            font-size: 1.25rem;
+            line-height: 1.7;
+            color: var(--text-secondary);
+            margin-bottom: 1rem;
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        ul li {
+            position: relative;
+            padding-left: 1.8rem;
+        }
+
+        ul li::before {
+            content: '→';
+            position: absolute;
+            left: 0;
+            color: var(--accent-1);
+            font-weight: bold;
+        }
+
+        .highlight-text {
+            color: var(--accent-1);
+            font-weight: 600;
+        }
+
+        /* Layouts */
+        .center-content {
+            text-align: center;
+            align-items: center;
+        }
+
+        .center-content h2::after {
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .grid {
+            display: grid;
+            gap: 2rem;
+            width: 100%;
+        }
+
+        .grid-2 {
+            grid-template-columns: 1fr 1fr;
+        }
+
+        .grid-3 {
+            grid-template-columns: repeat(3, 1fr);
+        }
+
+        /* Cards */
+        .card {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 1.2rem;
+            padding: 2.5rem;
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+            transition: transform 0.4s ease, box-shadow 0.4s ease, border-color 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--accent-1), var(--accent-2));
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+            border-color: rgba(217, 119, 87, 0.6);
+        }
+
+        .card:hover::before {
+            opacity: 1;
+        }
+
+        /* Antigravity Animation */
+        .float-1 {
+            animation: float 6s ease-in-out infinite;
+        }
+
+        .float-2 {
+            animation: float 7s ease-in-out infinite 1s;
+        }
+
+        .float-3 {
+            animation: float 5s ease-in-out infinite 2s;
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(0px);
+            }
+
+            50% {
+                transform: translateY(-12px);
+            }
+
+            100% {
+                transform: translateY(0px);
+            }
+        }
+
+        /* UI Elements */
+        .controls {
+            position: fixed;
+            bottom: 3rem;
+            right: 3rem;
+            z-index: 100;
+            display: flex;
+            gap: 1rem;
+        }
+
+        button {
+            background: rgba(255, 255, 255, 0.05);
+            color: var(--text-primary);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 0.8rem 1.8rem;
+            border-radius: 3rem;
+            font-family: var(--font-heading);
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+        }
+
+        button:hover:not(:disabled) {
+            background: var(--accent-1);
+            border-color: var(--accent-1);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(217, 119, 87, 0.4);
+        }
+
+        button:disabled {
+            opacity: 0.3;
+            cursor: not-allowed;
+        }
+
+        .slide-indicator {
+            position: fixed;
+            bottom: 3.5rem;
+            left: 3rem;
+            font-family: var(--font-heading);
+            font-size: 1.2rem;
+            color: var(--text-secondary);
+            z-index: 100;
+            font-weight: 600;
+            letter-spacing: 2px;
+        }
+
+        .progress-container {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 6px;
+            background: rgba(255, 255, 255, 0.05);
+            z-index: 100;
+        }
+
+        .progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, var(--accent-1), var(--accent-2));
+            width: 0%;
+            transition: width 0.4s ease;
+        }
+
+        .hook-subtitle {
+            font-size: 2.2rem;
+            font-weight: 300;
+            color: #cbd5e1;
+            margin-bottom: 2rem;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="presentation" id="presentation">
+
+        <!-- Slide 1: Title -->
+        <div class="slide center-content">
+            <h1>Remember Me Not?</h1>
+            <div class="hook-subtitle">Bridging the Gap in Cognitive Care.</div>
+            <p style="color: #64748b; margin-top: 3rem;">Productization & MVP Pitch</p>
+        </div>
+
+        <!-- Slide 2: The Solution -->
+        <div class="slide">
+            <h2>The Solution</h2>
+            <div class="grid grid-2">
+                <div class="card float-1">
+                    <h3 style="color: var(--accent-1);">For the Patient</h3>
+                    <p>A deeply personalized cognitive care app that replaces abstract clinical tasks with familiar
+                        stimuli.</p>
+                    <ul>
+                        <li>Memory-matching with family photos.</li>
+                        <li>Therapeutic, familiar music playlists.</li>
+                        <li>An AI-driven Spaced-Repetition algorithm that adapts difficulty daily.</li>
+                    </ul>
+                </div>
+                <div class="card float-2">
+                    <h3 style="color: var(--accent-2);">For the Guardian</h3>
+                    <p>A dedicated dashboard to monitor progress, alleviate burnout, and keep the family connected.</p>
+                    <ul>
+                        <li>Real-time analytics on patient accuracy.</li>
+                        <li>Remote content management for photos/audio.</li>
+                        <li>AI alerts when specific memories begin to fade.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 3: The Ask - Claude Max -->
+        <div class="slide center-content">
+            <h2>The Catalyst: Claude Max</h2>
+            <p style="font-size: 1.5rem; max-width: 800px; margin: 0 auto 3rem auto;">To transform this concept into a
+                live product, we need a <span class="highlight-text">Claude Max Subscription</span>. Here is how it
+                unlocks our roadmap:</p>
+
+            <div class="grid grid-3">
+                <div class="card float-1" style="border-top: 4px solid var(--accent-1);">
+                    <h3>1. Rapid MVP Generation</h3>
+                    <p>Building for both guardians and patients requires multi-platform support.</p>
+                    <p>Claude Max will allow us to generate the <strong>React Native (iOS/Android)</strong> and
+                        <strong>Web App</strong> codebases in a fraction of the time, getting us to MVP in days, not
+                        months.
+                    </p>
+                </div>
+                <div class="card float-2" style="border-top: 4px solid var(--accent-2);">
+                    <h3>2. Pilot Validation</h3>
+                    <p>We need to iterate immediately based on feedback from early-stage dementia patients.</p>
+                    <p>The speed of Claude Max enables <strong>real-time UX/UI adjustments</strong>, ensuring our app
+                        remains perfectly accessible and high-contrast during pilot testing.</p>
+                </div>
+                <div class="card float-3" style="border-top: 4px solid var(--accent-3);">
+                    <h3>3. Productization</h3>
+                    <p>Our app relies on a complex, interconnected architecture.</p>
+                    <p>Claude Max's <strong>massive context window</strong> is critical for managing our
+                        Spaced-Repetition Algorithm, Firebase backend, and frontend UI all at once to ensure a stable,
+                        secure, and market-ready product.</p>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- UI Elements -->
+    <div class="slide-indicator" id="slide-indicator">1 / 3</div>
+
+    <div class="controls">
+        <button id="btn-prev" disabled>Prev</button>
+        <button id="btn-next">Next</button>
+    </div>
+
+    <div class="progress-container">
+        <div class="progress-bar" id="progress-bar"></div>
+    </div>
+
+    <!-- Logic -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const slides = document.querySelectorAll('.slide');
+            const btnPrev = document.getElementById('btn-prev');
+            const btnNext = document.getElementById('btn-next');
+            const progressBar = document.getElementById('progress-bar');
+            const slideIndicator = document.getElementById('slide-indicator');
+
+            let currentSlide = 0;
+            const totalSlides = slides.length;
+
+            function updatePresentation() {
+                // Update slides
+                slides.forEach((slide, index) => {
+                    if (index === currentSlide) {
+                        slide.classList.add('active');
+                    } else {
+                        slide.classList.remove('active');
+                    }
+                });
+
+                // Update buttons
+                btnPrev.disabled = currentSlide === 0;
+                btnNext.disabled = currentSlide === totalSlides - 1;
+
+                // Update progress bar
+                const progressPercentage = ((currentSlide) / (totalSlides - 1)) * 100;
+                progressBar.style.width = `${progressPercentage}%`;
+
+                // Update indicator
+                slideIndicator.textContent = `${currentSlide + 1} / ${totalSlides}`;
+            }
+
+            function nextSlide() {
+                if (currentSlide < totalSlides - 1) {
+                    currentSlide++;
+                    updatePresentation();
+                }
+            }
+
+            function prevSlide() {
+                if (currentSlide > 0) {
+                    currentSlide--;
+                    updatePresentation();
+                }
+            }
+
+            // Event Listeners for buttons
+            btnNext.addEventListener('click', nextSlide);
+            btnPrev.addEventListener('click', prevSlide);
+
+            // Event Listener for keyboard navigation
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'ArrowRight' || e.key === ' ') {
+                    e.preventDefault();
+                    nextSlide();
+                } else if (e.key === 'ArrowLeft') {
+                    prevSlide();
+                }
+            });
+
+            // Initialize
+            updatePresentation();
+        });
+    </script>
+</body>
+
+</html>
