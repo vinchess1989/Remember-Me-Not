@@ -1,0 +1,114 @@
+graph TD
+
+%% ==========================================
+%% THE PROBLEM & IMPACT
+%% Future Updates: Add new research metrics or broader European impact data here.
+%% ==========================================
+subgraph Problem_Impact ["1. THE PROBLEM & IMPACT (Finnish Context)"]
+    P1["Core Problem: Isolation & Caretaker Burnout"]:::problemNode
+    P2["Financial Toll: €1B/year direct cost in FI"]:::problemNode
+    P3["Bottleneck: 85% goes to 24hr institutional care"]:::problemNode
+    P4(["Goal/Impact: Delay transition to institutional care"]):::impactNode
+    
+    P1 --> P4
+    P2 --> P3
+    P3 --> P4
+end
+
+%% ==========================================
+%% BUSINESS MODEL & LEAN CANVAS
+%% Future Updates: Expand revenue streams or detail new B2B partnerships here.
+%% ==========================================
+subgraph Business_Model ["5. BUSINESS MODEL & LEAN CANVAS"]
+    BM1["Target Customers: B2G, Caretakers, Early-stage patients"]:::bizNode
+    BM2["Early Adopters: Struggling families, Municipalities"]:::bizNode
+    BM3{{"UVP: Deeply personalized cognitive care linked to family background"}}:::uvpNode
+    BM4["Unfair Advantage: Hardware ecosystem + localized family loop"]:::bizNode
+    BM5["Alternatives: Muistipuisto, offline, brain games"]:::bizNode
+    BM6["Revenue Streams: B2G licensing, B2C Premium, Hardware"]:::bizNode
+    BM7["Cost Structure: App dev/maintenance, Hosting, Hardware R&D"]:::bizNode
+    BM8[("Key Metrics: DAU, streaks, accuracy, delayed care")]:::metricNode
+    
+    BM1 --> BM2
+    BM5 -.->|Replaced by| BM3
+    BM3 --> BM4
+end
+
+%% ==========================================
+%% THE APP ECOSYSTEM (Digital Solution)
+%% Future Updates: Add new patient modules (e.g., Voice AI) or Guardian analytics here.
+%% ==========================================
+subgraph App_Ecosystem ["2. THE APP ECOSYSTEM (Digital Solution)"]
+    subgraph Patient_Interface ["Patient Interface Modules"]
+        A1("Matching Game"):::featureNode
+        A2("Puzzles"):::featureNode
+        A3("My Images & Music"):::featureNode
+        A4("Contacts & Daily Schedule"):::featureNode
+        A5("Resources"):::featureNode
+    end
+
+    subgraph Guardian_Dashboard ["Guardian Dashboard"]
+        G1("Media Management (upload/tag)"):::featureNode
+        G2("Analytics (accuracy/speed)"):::featureNode
+        G3("Smart AI Suggestions"):::featureNode
+    end
+
+    I1(["Intelligence Layer: Spaced-repetition algorithm"]):::aiNode
+
+    G1 -->|Content update| A3
+    I1 -->|Adapts difficulty| A1
+    I1 -->|Adapts difficulty| A2
+    A1 -->|Generates data| G2
+    A2 -->|Generates data| G2
+    G2 -->|Feeds| G3
+end
+
+%% ==========================================
+%% HARDWARE ROADMAP (Phase 4)
+%% Future Updates: Add Phase 5 integration (e.g., wearables) here.
+%% ==========================================
+subgraph Hardware_Roadmap ["3. HARDWARE ROADMAP (Phase 4)"]
+    H1[/"Smart Olfactory Diffusers (App-synced scents)"\]:::hwNode
+    H2[/"NFC Tangible Reminiscence Box (Physical triggers)"\]:::hwNode
+end
+
+%% ==========================================
+%% TECHNICAL ARCHITECTURE
+%% Future Updates: Specify new microservices or database schemas here.
+%% ==========================================
+subgraph Tech_Architecture ["4. TECHNICAL ARCHITECTURE"]
+    T1[["Frontend: Flutter / React Native (Cross-platform)"]]:::techNode
+    T2[["Backend: Firebase / AWS Amplify"]]:::techNode
+    T3[["Security: Encrypted Cloud, HIPAA/GDPR Compliance"]]:::techNode
+    
+    T1 -->|API Requests| T2
+    T2 -->|Secured by| T3
+end
+
+%% ==========================================
+%% RELATIONSHIPS / CONNECTING ARROWS
+%% ==========================================
+P1 -->|Solved by| BM3
+P4 -.->|Measured by| BM8
+BM3 -->|Delivered via| App_Ecosystem
+Guardian_Dashboard -->|Used by| BM1
+Patient_Interface -->|Used by| BM1
+App_Ecosystem -->|Built on| T1
+H1 -.->|Syncs with| Patient_Interface
+H2 -.->|Triggers media| A3
+BM7 -->|Funds| Tech_Architecture
+BM7 -->|Funds| Hardware_Roadmap
+BM6 -->|Monetizes| BM1
+
+%% ==========================================
+%% STYLES & CLASSES
+%% ==========================================
+classDef problemNode fill:#ffebee,stroke:#c62828,stroke-width:2px,color:#c62828;
+classDef impactNode fill:#e8f5e9,stroke:#2e7d32,stroke-width:2px,color:#2e7d32;
+classDef bizNode fill:#fff3e0,stroke:#ef6c00,stroke-width:2px,color:#ef6c00;
+classDef uvpNode fill:#ffecb3,stroke:#ff8f00,stroke-width:4px,color:#ff8f00;
+classDef metricNode fill:#f3e5f5,stroke:#6a1b9a,stroke-width:2px,color:#6a1b9a;
+classDef featureNode fill:#e3f2fd,stroke:#1565c0,stroke-width:2px,color:#1565c0;
+classDef aiNode fill:#e0f7fa,stroke:#00838f,stroke-width:2px,color:#00838f;
+classDef hwNode fill:#eceff1,stroke:#455a64,stroke-width:2px,color:#455a64;
+classDef techNode fill:#e8eaf6,stroke:#283593,stroke-width:2px,color:#283593;
