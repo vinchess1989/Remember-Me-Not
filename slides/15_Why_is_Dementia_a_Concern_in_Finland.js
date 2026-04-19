@@ -1,0 +1,10 @@
+﻿window.presentationSlides = window.presentationSlides || {};
+window.presentationSlides['slides/15_Why_is_Dementia_a_Concern_in_Finland.js'] = `
+<div class="slide">
+    <h2>Why is Dementia a Concern in Finland?</h2>
+    <div class="card float-2">
+        <p>Finland has the <span class="highlight-text">highest dementia prevalence rate</span> among OECD countries.</p>
+        <p>About 150,000–200,000 people in Finland have dementia, with around 23,000 new cases each year.</p>
+    </div>
+</div>
+`;

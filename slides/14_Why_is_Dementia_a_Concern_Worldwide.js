@@ -1,0 +1,10 @@
+﻿window.presentationSlides = window.presentationSlides || {};
+window.presentationSlides['slides/14_Why_is_Dementia_a_Concern_Worldwide.js'] = `
+<div class="slide">
+    <h2>Why is Dementia a Concern Worldwide?</h2>
+    <div class="card float-1">
+        <p>Dementia mainly affects the elderly, but growing awareness reveals more cases starting before 65.</p>
+        <p>Over <span class="highlight-text">10 million new cases</span> are diagnosed each year, one every 3.2 seconds, impacting lives worldwide.</p>
+    </div>
+</div>
+`;

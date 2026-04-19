@@ -1,0 +1,1734 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Remember Me Not? - Pitch Deck</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=Inter:wght@400;500;600&display=swap');
+
+        :root {
+            --bg-base: #0f111a;
+            --bg-gradient: radial-gradient(circle at top right, #1f2335, #0f111a);
+            --text-primary: #ffffff;
+            --text-secondary: #94a3b8;
+            --accent-1: #6366f1; /* Indigo */
+            --accent-2: #ec4899; /* Pink */
+            --accent-3: #10b981; /* Emerald */
+            --card-bg: rgba(30, 33, 43, 0.6);
+            --card-border: rgba(99, 102, 241, 0.2);
+            --font-heading: 'Outfit', sans-serif;
+            --font-body: 'Inter', sans-serif;
+            --transition: 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: var(--font-body);
+            background: var(--bg-base);
+            background-image: var(--bg-gradient);
+            color: var(--text-primary);
+            overflow: hidden;
+            height: 100vh;
+            width: 100vw;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .presentation {
+            flex-grow: 1;
+            position: relative;
+            width: 100%;
+            height: 100%;
+        }
+
+        .slide {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            padding: 5rem 8%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            opacity: 0;
+            visibility: hidden;
+            transform: scale(0.98) translateY(20px);
+            transition: opacity var(--transition), transform var(--transition), visibility var(--transition);
+            z-index: 1;
+            overflow-y: auto;
+        }
+
+        .slide.active {
+            opacity: 1;
+            visibility: visible;
+            transform: scale(1) translateY(0);
+            z-index: 10;
+        }
+
+        /* Typography */
+        h1 {
+            font-family: var(--font-heading);
+            font-size: 5.5rem;
+            font-weight: 800;
+            line-height: 1.1;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, var(--text-primary), #a5b4fc);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        h2 {
+            font-family: var(--font-heading);
+            font-size: 3.5rem;
+            font-weight: 800;
+            margin-bottom: 2.5rem;
+            position: relative;
+            display: inline-block;
+        }
+
+        h2::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 60px;
+            height: 4px;
+            background: linear-gradient(90deg, var(--accent-1), var(--accent-2));
+            border-radius: 2px;
+        }
+
+        h3 {
+            font-family: var(--font-heading);
+            font-size: 1.8rem;
+            font-weight: 600;
+            margin-bottom: 1.2rem;
+            color: #e2e8f0;
+        }
+
+        p, li {
+            font-size: 1.25rem;
+            line-height: 1.7;
+            color: var(--text-secondary);
+            margin-bottom: 1rem;
+        }
+
+        ul {
+            list-style: none;
+        }
+        
+        ul li {
+            position: relative;
+            padding-left: 1.8rem;
+        }
+
+        ul li::before {
+            content: '→';
+            position: absolute;
+            left: 0;
+            color: var(--accent-1);
+            font-weight: bold;
+        }
+
+        .highlight-text {
+            color: var(--accent-2);
+            font-weight: 600;
+        }
+
+        /* Layouts */
+        .center-content {
+            text-align: center;
+            align-items: center;
+        }
+
+        .center-content h2::after {
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .grid {
+            display: grid;
+            gap: 2rem;
+            width: 100%;
+        }
+
+        .grid-2 { grid-template-columns: 1fr 1fr; }
+        .grid-3 { grid-template-columns: repeat(3, 1fr); }
+        .grid-4 { grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); }
+
+        /* Cards */
+        .card {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 1.2rem;
+            padding: 2.5rem;
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+            transition: transform 0.4s ease, box-shadow 0.4s ease, border-color 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; height: 4px;
+            background: linear-gradient(90deg, var(--accent-1), var(--accent-2));
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+            border-color: rgba(236, 72, 153, 0.4);
+        }
+
+        .card:hover::before {
+            opacity: 1;
+        }
+
+        /* Antigravity Animation */
+        .float-1 { animation: float 6s ease-in-out infinite; }
+        .float-2 { animation: float 7s ease-in-out infinite 1s; }
+        .float-3 { animation: float 5s ease-in-out infinite 2s; }
+
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-12px); }
+            100% { transform: translateY(0px); }
+        }
+
+        .stat-block {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-family: var(--font-heading);
+            font-size: 4rem;
+            font-weight: 800;
+            display: block;
+            margin-bottom: 0.5rem;
+            background: linear-gradient(to right, #f43f5e, #ec4899);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .stat-label {
+            font-size: 1.1rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--text-secondary);
+        }
+
+        .module-tag {
+            display: inline-block;
+            background: rgba(99, 102, 241, 0.15);
+            border: 1px solid rgba(99, 102, 241, 0.3);
+            color: #c7d2fe;
+            padding: 0.4rem 1rem;
+            border-radius: 2rem;
+            margin: 0.3rem;
+            font-size: 1rem;
+            font-weight: 500;
+        }
+
+        /* UI Elements */
+        .controls {
+            position: fixed;
+            bottom: 3rem;
+            right: 3rem;
+            z-index: 100;
+            display: flex;
+            gap: 1rem;
+        }
+
+        button {
+            background: rgba(255, 255, 255, 0.05);
+            color: var(--text-primary);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 0.8rem 1.8rem;
+            border-radius: 3rem;
+            font-family: var(--font-heading);
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+        }
+
+        button:hover:not(:disabled) {
+            background: var(--accent-1);
+            border-color: var(--accent-1);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(99, 102, 241, 0.4);
+        }
+        
+        button:disabled {
+            opacity: 0.3;
+            cursor: not-allowed;
+        }
+
+        .slide-indicator {
+            position: fixed;
+            bottom: 3.5rem;
+            left: 3rem;
+            font-family: var(--font-heading);
+            font-size: 1.2rem;
+            color: var(--text-secondary);
+            z-index: 100;
+            font-weight: 600;
+            letter-spacing: 2px;
+        }
+
+        .progress-container {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 6px;
+            background: rgba(255, 255, 255, 0.05);
+            z-index: 100;
+        }
+
+        .progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, var(--accent-1), var(--accent-2), var(--accent-3));
+            width: 0%;
+            transition: width 0.4s ease;
+        }
+
+        /* Specific Slide Tweaks */
+        .team-info {
+            margin-top: 4rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+            color: #64748b;
+            font-size: 1.1rem;
+        }
+        
+        .hook-subtitle {
+            font-size: 2.2rem;
+            font-weight: 300;
+            color: #cbd5e1;
+            margin-bottom: 2rem;
+        }
+
+        .glass-box {
+            background: rgba(255,255,255,0.02);
+            border-radius: 1rem;
+            padding: 1.5rem;
+            border: 1px solid rgba(255,255,255,0.05);
+        }
+
+        /* Concentric Circles Chart with Pie Split */
+        .chart-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 5rem;
+            margin-bottom: 3rem;
+            width: 100%;
+        }
+
+        .concentric-chart {
+            position: relative;
+            width: 460px;
+            height: 460px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        @property --fill {
+            syntax: '<percentage>';
+            inherits: false;
+            initial-value: 0%;
+        }
+
+        .donut {
+            position: absolute;
+            border-radius: 50%;
+            width: var(--radius);
+            height: var(--radius);
+            padding: var(--thickness); /* Thickness increases for outer rings, maintaining a 6px gap */
+            
+            /* Circular reveal starting with Informal (Orange) then Formal (Slate) */
+            background: conic-gradient(
+                #f97316 0%, 
+                #f97316 min(var(--informal), var(--fill)), 
+                #64748b min(var(--informal), var(--fill)), 
+                #64748b var(--fill), 
+                transparent var(--fill)
+            ) border-box;
+            
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            opacity: 0;
+            transform: scale(0.8);
+        }
+
+        .slide.active .donut.early { animation: fadePop 0.5s forwards 0.5s, fillRing 1.5s cubic-bezier(0.2, 0.8, 0.2, 1) forwards 0.5s; }
+        .slide.active .donut.mid { animation: fadePop 0.5s forwards 1.2s, fillRing 1.5s cubic-bezier(0.2, 0.8, 0.2, 1) forwards 1.2s; }
+        .slide.active .donut.late { animation: fadePop 0.5s forwards 1.9s, fillRing 1.5s cubic-bezier(0.2, 0.8, 0.2, 1) forwards 1.9s; }
+
+        @keyframes fadePop {
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        @keyframes fillRing {
+            from { --fill: 0%; }
+            to { --fill: 100%; }
+        }
+
+        /* Legend */
+        .chart-legend {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+            text-align: left;
+            min-width: 300px;
+        }
+
+        .legend-item {
+            opacity: 0;
+            transform: translateX(30px);
+        }
+
+        .slide.active .legend-item.early { animation: slideLeft 0.8s forwards 0.8s; }
+        .slide.active .legend-item.mid { animation: slideLeft 0.8s forwards 1.5s; }
+        .slide.active .legend-item.late { animation: slideLeft 0.8s forwards 2.2s; }
+
+        @keyframes slideLeft {
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        .legend-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--text-secondary);
+        }
+
+        .legend-val {
+            font-family: var(--font-heading);
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin: 0.2rem 0;
+        }
+
+        .early .legend-val { color: #34d399; }
+        .mid .legend-val { color: #fbbf24; }
+        .late .legend-val { color: #f87171; }
+
+        .split-bar-container {
+            width: 100%;
+            height: 8px;
+            background: #64748b; /* Formal Color */
+            border-radius: 4px;
+            overflow: hidden;
+            display: flex;
+        }
+
+        .split-bar-informal {
+            height: 100%;
+            background: #f97316; /* Informal Color */
+        }
+
+        .split-labels {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.85rem;
+            color: #94a3b8;
+            margin-top: 5px;
+        }
+        
+        .split-labels span:first-child { color: #fdba74; } /* Lighter orange for text */
+
+        /* Matching Game UI */
+        .game-board {
+            display: flex;
+            gap: 4rem;
+            margin-top: 2rem;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .game-col {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .game-card {
+            width: 180px;
+            height: 180px;
+            border-radius: 1rem;
+            background-size: cover;
+            background-position: center;
+            border: 4px solid transparent;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+        }
+
+        .game-card:hover { transform: scale(1.05); }
+        .game-card.selected { border-color: var(--accent-1); transform: scale(1.05); box-shadow: 0 0 20px var(--accent-1); }
+        .game-card.matched { border-color: #10b981; filter: grayscale(100%) opacity(0.5); cursor: default; transform: scale(0.95); }
+        .game-card.error { border-color: #ef4444; animation: shake 0.5s; }
+
+        .game-btn {
+            padding: 1rem 2rem;
+            font-size: 1.5rem;
+            font-family: var(--font-heading);
+            background: rgba(255,255,255,0.05);
+            color: var(--text-primary);
+            border: 2px solid rgba(255,255,255,0.1);
+            border-radius: 0.8rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            min-width: 300px;
+            text-align: center;
+        }
+
+        .game-btn:hover { background: rgba(255,255,255,0.1); }
+        .game-btn.selected { background: var(--accent-1); border-color: var(--accent-1); color: white; }
+        .game-btn.matched { background: #10b981; border-color: #10b981; color: white; opacity: 0.5; cursor: default; }
+        .game-btn.error { background: #ef4444; border-color: #ef4444; animation: shake 0.5s; }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            20%, 60% { transform: translateX(-10px); }
+            40%, 80% { transform: translateX(10px); }
+        }
+
+        .game-feedback {
+            height: 2rem;
+            margin-top: 2rem;
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--accent-2);
+        }
+
+        /* Animation Scene */
+        .animation-scene {
+            position: relative;
+            width: 800px;
+            height: 450px;
+            background: #2d3748; /* Dark room color */
+            border-radius: 1rem;
+            overflow: hidden;
+            margin: 0 auto;
+            border: 1px solid var(--card-border);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+
+        .window-frame {
+            position: absolute;
+            top: 50px;
+            right: 60px;
+            width: 120px;
+            height: 150px;
+            background: #718096; /* Lighter color for outside */
+            border: 10px solid #4a5568; /* Window frame */
+        }
+        .window-frame::before, .window-frame::after {
+            content: '';
+            position: absolute;
+            background: #4a5568;
+        }
+        .window-frame::before { /* vertical bar */
+            left: 50%;
+            transform: translateX(-50%);
+            width: 10px;
+            height: 100%;
+        }
+        .window-frame::after { /* horizontal bar */
+            top: 50%;
+            transform: translateY(-50%);
+            height: 10px;
+            width: 100%;
+        }
+
+        .bed {
+            position: absolute;
+            bottom: 0;
+            left: 50px;
+            width: 400px;
+            height: 120px;
+            background: #4a5568; /* Bed color */
+            border-top-left-radius: 10px;
+            border-top-right-radius: 10px;
+        }
+        .bed::before { /* headboard */
+            content: '';
+            position: absolute;
+            left: -20px;
+            bottom: 0;
+            width: 20px;
+            height: 150px;
+            background: #2d3748;
+            border: 10px solid #1a202c;
+            border-right: none;
+            border-radius: 5px 0 0 5px;
+        }
+
+        .person {
+            position: absolute;
+            top: -40px;
+            left: 50px;
+            width: 250px;
+            height: 40px;
+            background: #a0aec0; /* Blanket shape */
+            border-radius: 20px 20px 0 0;
+        }
+        .person::before { /* head */
+            content: '';
+            position: absolute;
+            top: -25px;
+            left: 20px;
+            width: 50px;
+            height: 50px;
+            background: #e2e8f0;
+            border-radius: 50%;
+        }
+
+        .nightstand {
+            position: absolute;
+            bottom: 0;
+            right: 220px;
+            width: 150px;
+            height: 80px;
+            background: #1a202c; /* Darker wood color */
+        }
+
+        .tablet {
+            position: absolute;
+            bottom: 80px;
+            left: 10px;
+            width: 80px;
+            height: 110px;
+            background: #111;
+            border-radius: 8px;
+            padding: 5px;
+        }
+
+        .tablet-screen {
+            width: 100%;
+            height: 100%;
+            background: #333;
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .notification {
+            text-align: center;
+            color: white;
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        .notification span { font-size: 2rem; }
+        .notification p { font-size: 0.8rem; margin: 0; color: white; }
+
+        .diffuser {
+            position: absolute;
+            bottom: 80px;
+            right: 15px;
+            width: 40px;
+            height: 50px;
+            background: #e2e8f0;
+            border-radius: 20px 20px 5px 5px;
+        }
+
+        .scent-puff {
+            position: absolute;
+            bottom: 50px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 10px;
+            height: 10px;
+            background: rgba(239, 221, 208, 0.6); /* Coffee-ish color */
+            border-radius: 50%;
+            opacity: 0;
+        }
+
+        .coffee-label {
+            position: absolute;
+            top: -25px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 1.1rem;
+            color: #f3d9c6; /* Coffee foam color */
+            opacity: 0;
+            white-space: nowrap;
+            font-weight: 600;
+        }
+
+        .breakfast-area {
+            position: absolute;
+            right: 40px;
+            bottom: 20px;
+            color: #a0aec0;
+            font-family: var(--font-heading);
+            opacity: 0;
+            font-size: 1.2rem;
+        }
+
+        /* Animations */
+        .slide.active .notification {
+            animation: showNotification 1s forwards 1s;
+        }
+
+        @keyframes showNotification {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .slide.active .tablet-screen {
+            animation: turnOnScreen 0.5s forwards 0.8s;
+        }
+
+        @keyframes turnOnScreen {
+            to {
+                background: var(--accent-1); /* Accent color */
+                box-shadow: 0 0 15px var(--accent-1);
+            }
+        }
+
+        .slide.active .scent-puff {
+            animation: emitScent 3s ease-out infinite;
+        }
+        .slide.active .puff-1 { animation-delay: 1.5s; }
+        .slide.active .puff-2 { animation-delay: 2.5s; }
+        .slide.active .puff-3 { animation-delay: 3.5s; }
+
+        @keyframes emitScent {
+            0% {
+                transform: translate(-50%, 0) scale(0.5);
+                opacity: 0.8;
+            }
+            100% {
+                transform: translate(-50%, -80px) scale(2);
+                opacity: 0;
+            }
+        }
+
+        .slide.active .coffee-label {
+            animation: fadeIn 1s forwards 1.5s;
+        }
+
+        .slide.active .breakfast-area {
+            animation: fadeIn 1s forwards 4s;
+        }
+
+        @keyframes fadeIn {
+            to { opacity: 0.8; }
+        }
+
+        .slide.active .person {
+            animation: getUpAndGo 9s ease-in-out forwards 2.5s;
+        }
+
+        @keyframes getUpAndGo {
+            0% { /* Lying down */
+                transform: translateY(0); width: 250px; height: 40px; top: -40px; left: 50px; border-radius: 20px 20px 0 0;
+            }
+            10% { /* Stir */
+                transform: translateY(-5px);
+            }
+            20% { /* Back to lying */
+                transform: translateY(0);
+            }
+            40% { /* Sit up */
+                transform: translateY(0); width: 60px; height: 90px; top: -90px; left: 180px; border-radius: 30px 30px 0 0;
+            }
+            60% { /* Move to edge of bed and stand */
+                transform: translateX(180px); width: 50px; height: 140px; top: -140px; left: 180px; border-radius: 25px 25px 0 0;
+            }
+            100% { /* Walk to kitchen */
+                transform: translateX(450px); width: 50px; height: 140px; top: -140px; left: 180px; border-radius: 25px 25px 0 0;
+                opacity: 0;
+            }
+        }
+
+        /* Design Science Research Slide - Enhanced Sizes */
+        .dsr-slide {
+            padding-left: 3%;
+            padding-right: 3%;
+        }
+
+        .dsr-grid {
+            display: grid;
+            grid-template-columns: 1fr 1.6fr 1fr;
+            gap: 2.5rem;
+            align-items: stretch;
+            margin-top: 0.5rem;
+        }
+
+        .dsr-panel {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+            height: 100%;
+            padding: 2rem;
+            justify-content: center;
+        }
+
+        .dsr-panel h3 {
+            font-size: 2.0rem;
+            text-align: center;
+            padding-bottom: 0.8rem;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            margin-bottom: 0.8rem;
+        }
+
+        .dsr-panel h4 {
+            font-family: var(--font-heading);
+            color: var(--text-primary);
+            font-size: 1.5rem;
+            margin-bottom: 0.3rem;
+            margin-top: 0.8rem;
+        }
+
+        .dsr-panel ul {
+            margin-bottom: 0.5rem;
+        }
+
+        .dsr-panel ul li {
+            font-size: 1.25rem;
+            padding-left: 1.2rem;
+            margin-bottom: 0.5rem;
+            line-height: 1.5;
+        }
+
+        .dsr-center-area {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: space-between;
+            position: relative;
+            padding: 1rem 0;
+        }
+
+        .dsr-box {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            padding: 1.5rem 2rem;
+            border-radius: 1rem;
+            text-align: center;
+            backdrop-filter: blur(10px);
+            z-index: 2;
+            width: 85%;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+
+        .dsr-box h4 {
+            font-family: var(--font-heading);
+            font-size: 1.5rem;
+            color: #e2e8f0;
+            margin-bottom: 0;
+        }
+
+        .dsr-cycles-wrapper {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+            position: relative;
+            margin: 2rem 0;
+        }
+
+        .dsr-cycles-wrapper::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 10%;
+            right: 10%;
+            height: 2px;
+            background: linear-gradient(90deg, #10b981 0%, #fbbf24 50%, #60a5fa 100%);
+            z-index: 1;
+            opacity: 0.3;
+        }
+
+        .dsr-center-area::before {
+            content: '';
+            position: absolute;
+            top: 15%;
+            bottom: 15%;
+            left: 50%;
+            width: 2px;
+            background: linear-gradient(180deg, rgba(255,255,255,0.1) 0%, #fbbf24 50%, rgba(255,255,255,0.1) 100%);
+            z-index: 1;
+            opacity: 0.3;
+        }
+
+        .dsr-cycle {
+            border-radius: 50%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            background: var(--card-bg);
+            border: 2px solid;
+            z-index: 2;
+            padding: 1.5rem;
+            backdrop-filter: blur(12px);
+            transition: all 0.4s ease;
+            position: relative;
+        }
+
+        .dsr-cycle.outer {
+            width: 220px;
+            height: 220px;
+        }
+
+        .dsr-cycle.inner {
+            width: 140px;
+            height: 140px;
+            border-color: #fbbf24;
+            box-shadow: 0 0 20px rgba(251, 191, 36, 0.15);
+        }
+
+        .dsr-cycle.relevance {
+            border-color: #10b981;
+            box-shadow: 0 0 20px rgba(16, 185, 129, 0.15);
+        }
+
+        .dsr-cycle.rigor {
+            border-color: #60a5fa;
+            box-shadow: 0 0 20px rgba(96, 165, 250, 0.15);
+        }
+
+        .dsr-cycle h4 {
+            font-family: var(--font-heading);
+            font-size: 1.3rem;
+            margin-bottom: 0.8rem;
+        }
+
+        .dsr-cycle.inner h4 {
+            font-size: 1.4rem;
+            margin: 0;
+            color: #fcd34d;
+        }
+
+        .dsr-cycle p {
+            font-size: 0.95rem;
+            line-height: 1.4;
+            margin: 0;
+            color: var(--text-secondary);
+        }
+
+        /* --- DSR Animation Rules --- */
+        .animated-dsr .anim-env,
+        .animated-dsr .anim-rel,
+        .animated-dsr .anim-kb,
+        .animated-dsr .anim-rigor,
+        .animated-dsr .anim-build,
+        .animated-dsr .anim-design,
+        .animated-dsr .anim-eval {
+            opacity: 0.15;
+            filter: grayscale(100%);
+            transform: scale(0.95);
+        }
+
+        /* Sequence 1: Step 1 (Environment -> Relevance) */
+        .slide.active.animated-dsr.step-1 .anim-env { animation: dsrActivate 1s forwards, dsrGlowGreen 2.5s forwards; }
+        .slide.active.animated-dsr.step-1 .anim-rel { animation: dsrActivate 1s forwards 1s, dsrGlowGreen 2s forwards 1s; }
+
+        /* Sequence 2: Step 2 (Knowledge Base -> Rigor) */
+        .slide.active.animated-dsr.step-2 .anim-kb { animation: dsrActivate 1s forwards, dsrGlowBlue 2.5s forwards; }
+        .slide.active.animated-dsr.step-2 .anim-rigor { animation: dsrActivate 1s forwards 1s, dsrGlowBlue 2s forwards 1s; }
+
+        /* Sequence 3: Step 3 (Combine to Build) */
+        .slide.active.animated-dsr.step-3 .anim-build { animation: dsrActivate 1s forwards, dsrGlowYellow 2s forwards, progressiveBuild 16s forwards 3s; }
+        
+        /* Sequence 4: Step 4 (Iterative Cycle) */
+        .slide.active.animated-dsr.step-4 .anim-design { animation: dsrActivate 1s forwards, cycleGlowCenter 4s infinite 2s; }
+        .slide.active.animated-dsr.step-4 .anim-eval { animation: dsrActivate 1s forwards, cycleGlowBottom 4s infinite 2s; }
+
+        @keyframes dsrActivate {
+            to { opacity: 1; filter: grayscale(0%); transform: scale(1); }
+        }
+        @keyframes dsrGlowGreen {
+            50% { box-shadow: 0 0 40px rgba(16, 185, 129, 0.6); border-color: #34d399; }
+            100% { opacity: 1; filter: grayscale(0%); transform: scale(1); box-shadow: 0 0 20px rgba(16, 185, 129, 0.15); }
+        }
+        @keyframes dsrGlowBlue {
+            50% { box-shadow: 0 0 40px rgba(96, 165, 250, 0.6); border-color: #93c5fd; }
+            100% { opacity: 1; filter: grayscale(0%); transform: scale(1); box-shadow: 0 0 20px rgba(96, 165, 250, 0.15); }
+        }
+        @keyframes dsrGlowYellow {
+            50% { box-shadow: 0 0 40px rgba(251, 191, 36, 0.6); border-color: #fcd34d; }
+            100% { opacity: 1; filter: grayscale(0%); transform: scale(1); box-shadow: 0 4px 15px rgba(0,0,0,0.2); }
+        }
+
+        /* Loop Keyframes */
+        @keyframes progressiveBuild {
+            /* Iteration 1 */
+            0% { box-shadow: 0 4px 15px rgba(0,0,0,0.2); border-color: rgba(255,255,255,0.15); transform: scale(1); background: rgba(255, 255, 255, 0.03); }
+            3.75%, 8.75% { box-shadow: 0 0 40px rgba(251, 191, 36, 0.8); border-color: #fcd34d; transform: scale(1.05); background: rgba(251, 191, 36, 0.05); }
+            25% { box-shadow: 0 0 20px rgba(251, 191, 36, 0.2); border-color: rgba(251, 191, 36, 0.3); transform: scale(1.05); background: rgba(251, 191, 36, 0.02); }
+            
+            /* Iteration 2 */
+            28.75%, 33.75% { box-shadow: 0 0 50px rgba(251, 191, 36, 0.9); border-color: #fcd34d; transform: scale(1.10); background: rgba(251, 191, 36, 0.08); }
+            50% { box-shadow: 0 0 30px rgba(251, 191, 36, 0.4); border-color: rgba(251, 191, 36, 0.5); transform: scale(1.10); background: rgba(251, 191, 36, 0.04); }
+            
+            /* Iteration 3 */
+            53.75%, 58.75% { box-shadow: 0 0 60px rgba(251, 191, 36, 1); border-color: #fef08a; transform: scale(1.15); background: rgba(251, 191, 36, 0.12); }
+            75% { box-shadow: 0 0 40px rgba(251, 191, 36, 0.6); border-color: rgba(251, 191, 36, 0.7); transform: scale(1.15); background: rgba(251, 191, 36, 0.06); }
+            
+            /* Iteration 4 (Final Maturity) */
+            78.75%, 83.75% { box-shadow: 0 0 80px rgba(251, 191, 36, 1); border-color: #fef08a; transform: scale(1.22); background: rgba(251, 191, 36, 0.18); }
+            100% { box-shadow: 0 0 50px rgba(251, 191, 36, 0.8); border-color: #fef08a; transform: scale(1.22); background: rgba(251, 191, 36, 0.1); }
+        }
+        @keyframes cycleGlowCenter {
+            0%, 100% { box-shadow: 0 0 20px rgba(251, 191, 36, 0.15); border-color: #fbbf24; transform: scale(1); }
+            40%, 60% { box-shadow: 0 0 50px rgba(251, 191, 36, 1); border-color: #fef08a; transform: scale(1.05); }
+        }
+        @keyframes cycleGlowBottom {
+            0%, 100% { box-shadow: 0 4px 15px rgba(0,0,0,0.2); border-color: rgba(255,255,255,0.15); transform: scale(1); }
+            65%, 85% { box-shadow: 0 0 40px rgba(16, 185, 129, 0.8); border-color: #34d399; transform: scale(1.05); }
+        }
+
+        /* Animated Labels */
+        .anim-label {
+            position: absolute;
+            font-weight: 800;
+            opacity: 0;
+            pointer-events: none;
+            font-family: var(--font-heading);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            z-index: 20;
+            white-space: nowrap;
+            text-shadow: 0 4px 10px rgba(0,0,0,0.8);
+            background: rgba(15, 17, 26, 0.85);
+            padding: 0.6rem 1.2rem;
+            border-radius: 2rem;
+            border: 1px solid rgba(255,255,255,0.15);
+        }
+        .label-env-rel { color: #34d399; top: 50%; left: 21%; transform: translate(-50%, -50%); }
+        .label-kb-rigor { color: #93c5fd; top: 50%; right: 21%; transform: translate(50%, -50%); }
+        .label-combine { color: #fcd34d; top: 22%; left: 50%; transform: translateX(-50%); }
+        .label-iterate { color: #fef08a; top: 60%; left: 50%; transform: translate(-50%, -50%); }
+
+        .slide.active.animated-dsr.step-1 .label-env-rel { animation: showLabelLeft 2.5s forwards 0.5s; }
+        .slide.active.animated-dsr.step-2 .label-kb-rigor { animation: showLabelRight 2.5s forwards 0.5s; }
+        .slide.active.animated-dsr.step-3 .label-combine { animation: showLabelCombine 2.5s forwards 0.5s; }
+        .slide.active.animated-dsr.step-4 .label-iterate { animation: showLabelContinuous 4s infinite 2s; }
+
+        @keyframes showLabelLeft {
+            0% { opacity: 0; transform: translate(-80%, -50%) scale(0.8); }
+            20%, 80% { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+            100% { opacity: 0; transform: translate(-20%, -50%) scale(1.1); }
+        }
+        @keyframes showLabelRight {
+            0% { opacity: 0; transform: translate(80%, -50%) scale(0.8); }
+            20%, 80% { opacity: 1; transform: translate(50%, -50%) scale(1); }
+            100% { opacity: 0; transform: translate(20%, -50%) scale(1.1); }
+        }
+        @keyframes showLabelCombine {
+            0% { opacity: 0; transform: translate(-50%, 20px) scale(0.8); }
+            20%, 80% { opacity: 1; transform: translate(-50%, 0) scale(1); }
+            100% { opacity: 0; transform: translate(-50%, -20px) scale(1.1); }
+        }
+        @keyframes showLabelContinuous {
+            0%, 100% { opacity: 0; }
+            40%, 60% { opacity: 1; box-shadow: 0 0 20px rgba(251, 191, 36, 0.3); }
+        }
+
+        /* Iterative Path Rotation Wrappers */
+        .anim-iterate-path-wrapper {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            pointer-events: none;
+        }
+        .iterative-paths-rotation {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            animation: rotateContinuous 12s linear infinite;
+        }
+        @keyframes rotateContinuous {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        /* Iterative Process Arrows */
+        .iterative-path {
+            position: absolute;
+            top: -25px;
+            width: 95px;
+            height: 190px;
+            border: 3px dashed rgba(254, 240, 138, 0.6);
+            z-index: -1;
+            pointer-events: none;
+            opacity: 1;
+            filter: drop-shadow(0 0 5px rgba(251, 191, 36, 0.4));
+        }
+        
+        .animated-dsr .anim-iterate-path {
+            opacity: 0;
+            filter: grayscale(100%);
+        }
+
+        .iterative-path.left {
+            left: -25px;
+            border-right: none;
+            border-radius: 190px 0 0 190px;
+        }
+
+        .iterative-path.right {
+            right: -25px;
+            border-left: none;
+            border-radius: 0 190px 190px 0;
+        }
+
+        .iterative-path.left::after {
+            content: '';
+            position: absolute;
+            top: -3px;
+            right: -8px;
+            border-top: 7px solid transparent;
+            border-bottom: 7px solid transparent;
+            border-left: 12px solid rgba(254, 240, 138, 1);
+        }
+
+        .iterative-path.right::after {
+            content: '';
+            position: absolute;
+            bottom: -3px;
+            left: -8px;
+            border-top: 7px solid transparent;
+            border-bottom: 7px solid transparent;
+            border-right: 12px solid rgba(254, 240, 138, 1);
+        }
+
+        @keyframes pathPulse {
+            0%, 100% { filter: drop-shadow(0 0 2px rgba(251, 191, 36, 0.2)); opacity: 0.4; }
+            50% { filter: drop-shadow(0 0 10px rgba(251, 191, 36, 1)); opacity: 1; }
+        }
+
+        .slide.active.animated-dsr.step-4 .anim-iterate-path {
+            animation: dsrActivate 1s forwards, pathPulse 4s infinite 2s;
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="presentation" id="presentation">
+        
+        <!-- Slide 1: Title & Hook -->
+        <div class="slide center-content">
+            <h1>Remember Me Not?</h1>
+            <div class="hook-subtitle">Bridging the Gap in Cognitive Care.</div>
+            
+            <div class="team-info">
+                <span><strong>Startup Weekend Oulu, Finland</strong> &bull; 17.04.2026</span>
+                <span>Team: Mary, Joel, Arnold, Eugenia, Vineeth</span>
+            </div>
+        </div>
+
+        <!-- Slide 2: The Problem & The Gap -->
+        <div class="slide">
+            <h2>The Problem & The Gap</h2>
+            <div class="grid grid-3">
+                <div class="card float-1">
+                    <h3>The Patient</h3>
+                    <p>Facing rapid, isolating memory degradation.</p>
+                    <p>Experiencing high anxiety with abstract, clinical "brain games" that lack personal meaning.</p>
+                </div>
+                <div class="card float-2">
+                    <h3>The Guardian</h3>
+                    <p>Suffering from severe caregiver burnout.</p>
+                    <p>Lacking daily progress visibility and bearing the massive emotional toll of being forgotten.</p>
+                </div>
+                <div class="card float-3" style="border-color: rgba(236, 72, 153, 0.3);">
+                    <h3>Existing Alternatives</h3>
+                    <p>Tools like <span class="highlight-text">Muistipuisto</span> (Memory Park), offline activities, or Lumosity are disjointed.</p>
+                    <p>They completely lack deeply personalized, family-linked daily ecosystems.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 3: The €1 Billion Challenge -->
+        <div class="slide center-content">
+            <h2>The €1 Billion Challenge</h2>
+            <p style="font-size: 1.5rem; max-width: 800px; margin: 0 auto 3rem auto;">Finland spends roughly <span class="highlight-text">€1 Billion annually</span> on direct dementia care. The financial bottleneck is severe.</p>
+            
+            <div class="grid grid-3" style="margin-bottom: 3rem;">
+                <div class="card stat-block">
+                    <span class="stat-number">85%</span>
+                    <span class="stat-label">Driven by 24-hour institutional care at advanced stages</span>
+                </div>
+                <div class="card stat-block">
+                    <span class="stat-number">€9.5k</span>
+                    <span class="stat-label">Average Annual Home Care Cost</span>
+                </div>
+                <div class="card stat-block" style="border-color: rgba(244, 63, 94, 0.4);">
+                    <span class="stat-number">>€28.4k</span>
+                    <span class="stat-label">Cost Triples when moving to Institutional Care</span>
+                </div>
+            </div>
+            
+            <div class="glass-box" style="display: inline-block; text-align: left; max-width: 800px;">
+                <h3 style="color: var(--accent-3); margin-bottom: 0.5rem;">The Value Proposition</h3>
+                <p style="margin:0;">Delaying this transition through daily cognitive stimulation saves massive government funds while preserving family quality of life.</p>
+            </div>
+        </div>
+
+        <!-- Slide 4: Financial Burden by Stage -->
+        <div class="slide center-content">
+            <h2>The Cost of Alzheimer's by Stage</h2>
+            <p style="font-size: 1.5rem; max-width: 800px; margin: 0 auto 3rem auto;">As the disease progresses, costs <span class="highlight-text">skyrocket</span> and shift dramatically from informal family care to expensive formal institutional care.</p>
+            
+            <div class="chart-container">
+                <!-- Concentric Donut Chart -->
+                <div class="concentric-chart">
+                    <div class="donut late" style="--informal: 15%; --radius: 434px; --thickness: 70px;"></div>
+                    <div class="donut mid" style="--informal: 65%; --radius: 282px; --thickness: 55px;"></div>
+                    <div class="donut early" style="--informal: 40%; --radius: 160px; --thickness: 40px;"></div>
+                </div>
+
+                <!-- Legend & Values -->
+                <div class="chart-legend">
+                    <div class="legend-item late">
+                        <div class="legend-title">Late Stages (CDRS ≥ 16)</div>
+                        <div class="legend-val">€72,056</div>
+                        <div class="split-bar-container"><div class="split-bar-informal" style="width: 15%"></div></div>
+                        <div class="split-labels"><span>15% Informal</span><span>85% Formal</span></div>
+                    </div>
+                    
+                    <div class="legend-item mid">
+                        <div class="legend-title">Mid Stages (CDRS 7-9)</div>
+                        <div class="legend-val">€45,220</div>
+                        <div class="split-bar-container"><div class="split-bar-informal" style="width: 65%"></div></div>
+                        <div class="split-labels"><span>65% Informal</span><span>35% Formal</span></div>
+                    </div>
+                    
+                    <div class="legend-item early">
+                        <div class="legend-title">Early Stages (CDRS < 4)</div>
+                        <div class="legend-val">€16,530</div>
+                        <div class="split-bar-container"><div class="split-bar-informal" style="width: 40%"></div></div>
+                        <div class="split-labels"><span>40% Informal</span><span>60% Formal</span></div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="glass-box" style="display: inline-block; text-align: left; max-width: 800px;">
+                <h3 style="color: var(--accent-1); margin-bottom: 0.5rem;">The Goal</h3>
+                <p style="margin:0;">By keeping patients in the <strong>Early/Mid stages</strong> longer, we drastically reduce the €72k+ burden of formal care.</p>
+            </div>
+        </div>
+
+        <!-- Slide 5: The Digital Solution -->
+        <div class="slide">
+            <h2>The Digital Solution</h2>
+            <div class="grid grid-2">
+                <div class="card float-1">
+                    <h3>6 Core Patient Modules</h3>
+                    <div style="margin-bottom: 1rem;">
+                        <span class="module-tag">Matching Game</span>
+                        <span class="module-tag">Puzzles</span>
+                        <span class="module-tag">My Images</span>
+                        <span class="module-tag">Therapeutic Music</span>
+                        <span class="module-tag">Contacts</span>
+                        <span class="module-tag">Daily Schedule</span>
+                    </div>
+                    <p>Familiar faces and personalized exercises rather than abstract tasks.</p>
+                </div>
+                
+                <div class="card float-2">
+                    <h3>Guardian Empowerment</h3>
+                    <ul>
+                        <li>Intuitive dashboards to edit and monitor content.</li>
+                        <li>Real-time tracking of identification accuracy and speed.</li>
+                    </ul>
+                </div>
+                
+                <div class="card float-3" style="grid-column: 1 / -1; display: flex; align-items: center; gap: 2rem;">
+                    <div style="flex: 1;">
+                        <h3 style="color: var(--accent-1);">The Intelligence Layer</h3>
+                        <p>Powered by a <strong>spaced-repetition algorithm</strong>.</p>
+                        <p style="font-size: 1.1rem; font-style: italic;">Example: If the patient starts forgetting "Mary", the app alerts the guardian to increase exposure to Mary's photos in the modules.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 6: Business Model & Market Strategy -->
+        <div class="slide">
+            <h2>Business Model & Market Strategy</h2>
+            <div class="grid grid-3">
+                <div class="card float-1">
+                    <h3 style="color: var(--accent-3);">Customer Segments</h3>
+                    <ul>
+                        <li><strong>B2G:</strong> Municipalities & Wellbeing counties (reducing budgets).</li>
+                        <li><strong>B2C:</strong> Guardians/Families (premium subscriptions).</li>
+                        <li><strong>Early Adopters:</strong> Early-stage patients struggling with communication.</li>
+                    </ul>
+                </div>
+                
+                <div class="card float-2">
+                    <h3 style="color: var(--accent-1);">Revenue Streams</h3>
+                    <ul>
+                        <li>B2G Licensing contracts.</li>
+                        <li>B2C Premium Subscriptions.</li>
+                        <li>Future Hardware Sales (Ecosystem expansion).</li>
+                    </ul>
+                </div>
+
+                <div class="card float-3">
+                    <h3 style="color: var(--accent-2);">Key Metrics</h3>
+                    <ul>
+                        <li>Daily Active Usage (DAU).</li>
+                        <li>Streak maintenance.</li>
+                        <li>Identification accuracy over time.</li>
+                        <li><strong>Time delayed</strong> before institutional care transition.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <!-- Slide 7: Live Demo (Matching Game) -->
+        <div class="slide center-content" id="demo-slide">
+            <h2>Live Demo: Patient Module</h2>
+            <p style="font-size: 1.2rem; color: var(--text-secondary); margin-bottom: 2rem;">Match the familiar face to the correct name to strengthen neural pathways.</p>
+            
+            <div class="game-board">
+                <div class="game-col" id="game-photos">
+                    <!-- Photos injected by JS -->
+                </div>
+                <div class="game-col" id="game-names">
+                    <!-- Names injected by JS -->
+                </div>
+            </div>
+            
+            <div class="game-feedback" id="game-feedback">Select a photo and a name.</div>
+            <button class="game-btn" id="btn-reset-game" style="margin-top: 2rem; padding: 0.5rem 1rem; font-size: 1rem; min-width: auto;">Reset Game</button>
+        </div>
+
+        <!-- Slide 8: Unfair Advantage -->
+        <div class="slide">
+            <h2>Unfair Advantage: Hardware Moat</h2>
+            <p style="font-size: 1.4rem; margin-bottom: 2rem;">Phase 4 Strategy: Linking physical senses to digital memory recall.</p>
+            
+            <div class="grid grid-2">
+                <div class="card float-1" style="border-top: 4px solid var(--accent-1);">
+                    <h3>Smart Olfactory Integration</h3>
+                    <p>App-linked Bluetooth scent diffusers to reinforce daily routines.</p>
+                    <ul>
+                        <li>Emitting a coffee aroma at 8 AM to wake up gently.</li>
+                        <li>Releasing lavender scent at 7 PM to reduce evening "sundowning" agitation.</li>
+                    </ul>
+                </div>
+                
+                <div class="card float-2" style="border-top: 4px solid var(--accent-2);">
+                    <h3>Tangible Reminiscence Box</h3>
+                    <p>Physical objects equipped with NFC/RFID tags (e.g., a wedding veil, baby shoes, physical photos).</p>
+                    <p><strong>The Magic:</strong> Picking them up triggers the nearby tablet to automatically play a related video or audio note from a loved one.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 9: Animation Concept -->
+        <div class="slide center-content">
+            <h2>Bringing Senses to Life</h2>
+            <p style="font-size: 1.2rem; color: var(--text-secondary); margin-bottom: 2rem;">Visualizing our Phase 4 hardware ecosystem in action.</p>
+            <div class="animation-scene">
+                <div class="window-frame"></div>
+                <div class="bed">
+                    <div class="person"></div>
+                </div>
+                <div class="nightstand">
+                    <div class="tablet">
+                        <div class="tablet-screen">
+                            <div class="notification">
+                                <span>🍳</span>
+                                <p>Breakfast Time!</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="diffuser">
+                        <div class="coffee-label">☕ Coffee</div>
+                        <div class="scent-puff puff-1"></div>
+                        <div class="scent-puff puff-2"></div>
+                        <div class="scent-puff puff-3"></div>
+                    </div>
+                </div>
+                <div class="breakfast-area">
+                    <p>Kitchen →</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 10: Design Science Research (Animated Process Flow) -->
+        <div class="slide dsr-slide animated-dsr" data-steps="4">
+            <h2 style="margin-bottom: 1rem;">Design Science Research: Process Flow</h2>
+            <div class="dsr-grid" style="position: relative;">
+                
+                <div class="anim-label label-env-rel">➔ Constitutes Relevance</div>
+                <div class="anim-label label-kb-rigor">Constitutes Rigor ⟵</div>
+                <div class="anim-label label-combine">⬈ Combines to Build ⬉</div>
+                <div class="anim-label label-iterate">⇅ Iterative Evaluation ⇅</div>
+
+                <!-- Environment / People -->
+                <div class="card dsr-panel anim-env">
+                    <h3 style="color: var(--accent-3);">Environment</h3>
+                    
+                    <h4>People</h4>
+                    <ul>
+                        <li>People with dementia</li>
+                        <li>Caregivers & Healthcare pros</li>
+                        <li>Muistiliitto ry (Oulu)</li>
+                    </ul>
+
+                    <h4>Organization</h4>
+                    <ul>
+                        <li>Muistiliitto</li>
+                        <li>University</li>
+                    </ul>
+
+                    <h4>Technology</h4>
+                    <ul>
+                        <li>Generative AI</li>
+                        <li>Serious Games</li>
+                        <li>Gamification</li>
+                    </ul>
+                </div>
+
+                <!-- Center Cycles -->
+                <div class="dsr-center-area">
+                    <div class="dsr-box anim-build">
+                        <h4>Build Design Prototype</h4>
+                    </div>
+                    
+                    <div class="dsr-cycles-wrapper">
+                        <div class="dsr-cycle outer relevance anim-rel">
+                            <h4 style="color: #34d399;">Relevance Cycle</h4>
+                            <p>Collaboration with Muistiliitto ry<br><br>Identification of real-world needs</p>
+                        </div>
+                        
+                        <div class="dsr-cycle inner anim-design">
+                            <div class="anim-iterate-path-wrapper anim-iterate-path">
+                                <div class="iterative-paths-rotation">
+                                    <div class="iterative-path left"></div>
+                                    <div class="iterative-path right"></div>
+                                </div>
+                            </div>
+                            <h4>Design<br>Cycle</h4>
+                        </div>
+                        
+                        <div class="dsr-cycle outer rigor anim-rigor">
+                            <h4 style="color: #93c5fd;">Rigor Cycle</h4>
+                            <p>Translate academic evidence and primary survey data into design requirements</p>
+                        </div>
+                    </div>
+
+                    <div class="dsr-box anim-eval">
+                        <h4>Focus Group Evaluation</h4>
+                        <p style="color: var(--text-secondary); margin-top: 0.5rem;">Health Professionals & Technology Experts</p>
+                    </div>
+                </div>
+
+                <!-- Knowledge Base -->
+                <div class="card dsr-panel anim-kb">
+                    <h3 style="color: var(--accent-1);">Knowledge Base</h3>
+                    
+                    <h4>Foundations</h4>
+                    <ul>
+                        <li>Dementia care</li>
+                        <li>Serious Games & Gamification</li>
+                        <li>Responsible AI</li>
+                    </ul>
+
+                    <h4>Methods</h4>
+                    <ul>
+                        <li>Systematic literature review</li>
+                        <li>Qualitative interviews</li>
+                        <li>Focus group evaluation</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 11: Roadmap -->
+        <div class="slide" style="padding: 0;" data-steps="6">
+            <iframe src="Roadmap Slide.html" style="width: 100%; height: 100%; border: none;"></iframe>
+        </div>
+
+        <!-- Slide 12: The Ask -->
+        <div class="slide center-content">
+            <h2>The Ask</h2>
+            <div class="card float-1" style="max-width: 800px; margin: 0 auto; text-align: left;">
+                <h3 style="text-align: center; margin-bottom: 2rem; color: var(--accent-3);">Pitch Goal: Build the MVP by Sunday evening.</h3>
+                
+                <p style="text-align: center; margin-bottom: 1.5rem; font-weight: 600;">We are looking for passionate individuals to join us:</p>
+                
+                <div class="grid grid-3">
+                    <div style="text-align: center;">
+                        <h4 style="color: var(--text-primary); font-size: 1.2rem; margin-bottom: 0.5rem;">Developers</h4>
+                        <p style="font-size: 1rem;">React Native, Flutter, or Firebase specialists.</p>
+                    </div>
+                    <div style="text-align: center;">
+                        <h4 style="color: var(--text-primary); font-size: 1.2rem; margin-bottom: 0.5rem;">UX/UI Designers</h4>
+                        <p style="font-size: 1rem;">Specializing in accessible, high-contrast design for the elderly.</p>
+                    </div>
+                    <div style="text-align: center;">
+                        <h4 style="color: var(--text-primary); font-size: 1.2rem; margin-bottom: 0.5rem;">Business Devs</h4>
+                        <p style="font-size: 1rem;">Experience in healthcare or B2G networking and sales.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- UI Elements -->
+    <div class="slide-indicator" id="slide-indicator">1 / 11</div>
+    
+    <div class="controls">
+        <button id="btn-prev" disabled>Prev</button>
+        <button id="btn-next">Next</button>
+    </div>
+
+    <div class="progress-container">
+        <div class="progress-bar" id="progress-bar"></div>
+    </div>
+
+    <!-- Logic -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const slides = document.querySelectorAll('.slide');
+            const btnPrev = document.getElementById('btn-prev');
+            const btnNext = document.getElementById('btn-next');
+            const progressBar = document.getElementById('progress-bar');
+            const slideIndicator = document.getElementById('slide-indicator');
+            
+            let currentSlide = 0;
+            let currentStep = 0;
+            const totalSlides = slides.length;
+
+            function updatePresentation() {
+                // Update slides
+                slides.forEach((slide, index) => {
+                    if (index === currentSlide) {
+                        slide.classList.add('active');
+                        // Restore steps when navigating backwards
+                        for (let i = 1; i <= currentStep; i++) {
+                            slide.classList.add(`step-${i}`);
+                        }
+                    } else {
+                        slide.classList.remove('active');
+                        // Clear steps from inactive slides
+                        slide.classList.remove('step-1', 'step-2', 'step-3', 'step-4', 'step-5', 'step-6');
+                    }
+                });
+
+                // Update buttons
+                const maxSteps = parseInt(slides[currentSlide].getAttribute('data-steps') || '0', 10);
+                btnPrev.disabled = currentSlide === 0 && currentStep === 0;
+                btnNext.disabled = currentSlide === totalSlides - 1 && currentStep === maxSteps;
+
+                // Sync with iframe if present
+                const iframe = slides[currentSlide].querySelector('iframe');
+                if (iframe && iframe.contentWindow) {
+                    iframe.contentWindow.postMessage({ action: 'setStep', step: currentStep }, '*');
+                }
+
+                // Update progress bar
+                const progressPercentage = ((currentSlide) / (totalSlides - 1)) * 100;
+                progressBar.style.width = `${progressPercentage}%`;
+
+                // Update indicator
+                slideIndicator.textContent = `${currentSlide + 1} / ${totalSlides}`;
+            }
+
+            function nextSlide() {
+                const currentSlideEl = slides[currentSlide];
+                const maxSteps = parseInt(currentSlideEl.getAttribute('data-steps') || '0', 10);
+                
+                if (currentStep < maxSteps) {
+                    currentStep++;
+                    currentSlideEl.classList.add(`step-${currentStep}`);
+                    updatePresentation();
+                } else if (currentSlide < totalSlides - 1) {
+                    currentSlide++;
+                    currentStep = 0;
+                    updatePresentation();
+                }
+            }
+
+            function prevSlide() {
+                const currentSlideEl = slides[currentSlide];
+                
+                if (currentStep > 0) {
+                    currentSlideEl.classList.remove(`step-${currentStep}`);
+                    currentStep--;
+                    updatePresentation();
+                } else if (currentSlide > 0) {
+                    currentSlide--;
+                    const prevSlideEl = slides[currentSlide];
+                    currentStep = parseInt(prevSlideEl.getAttribute('data-steps') || '0', 10);
+                    updatePresentation();
+                }
+            }
+
+            // Event Listeners for buttons
+            btnNext.addEventListener('click', nextSlide);
+            btnPrev.addEventListener('click', prevSlide);
+
+            // Event Listener for keyboard navigation
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'ArrowRight' || e.key === ' ') {
+                    e.preventDefault(); // Prevent scrolling on space
+                    nextSlide();
+                } else if (e.key === 'ArrowLeft') {
+                    prevSlide();
+                }
+            });
+
+            // Initialize
+            updatePresentation();
+
+            // --- Interactive Game Logic ---
+            const gameData = [
+                { id: '1', name: 'Mary (Daughter)', img: 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=200&q=80' },
+                { id: '2', name: 'John (Son)', img: 'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=200&q=80' },
+                { id: '3', name: 'David (Brother)', img: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=200&q=80' }
+            ];
+
+            const photosContainer = document.getElementById('game-photos');
+            const namesContainer = document.getElementById('game-names');
+            const feedbackText = document.getElementById('game-feedback');
+            const btnResetGame = document.getElementById('btn-reset-game');
+
+            let selectedPhoto = null;
+            let selectedName = null;
+            let matchedPairs = 0;
+
+            function initGame() {
+                photosContainer.innerHTML = '';
+                namesContainer.innerHTML = '';
+                feedbackText.textContent = 'Select a photo and a name.';
+                feedbackText.style.color = 'var(--accent-2)';
+                selectedPhoto = null;
+                selectedName = null;
+                matchedPairs = 0;
+
+                // Shuffle data for names to make it a game
+                const shuffledNames = [...gameData].sort(() => Math.random() - 0.5);
+
+                gameData.forEach(item => {
+                    // Create Photo Card
+                    const card = document.createElement('div');
+                    card.className = 'game-card';
+                    card.style.backgroundImage = `url('${item.img}')`;
+                    card.dataset.id = item.id;
+                    card.addEventListener('click', () => handlePhotoClick(card));
+                    photosContainer.appendChild(card);
+                });
+
+                shuffledNames.forEach(item => {
+                    // Create Name Button
+                    const btn = document.createElement('button');
+                    btn.className = 'game-btn';
+                    btn.textContent = item.name;
+                    btn.dataset.id = item.id;
+                    btn.addEventListener('click', () => handleNameClick(btn));
+                    namesContainer.appendChild(btn);
+                });
+            }
+
+            function handlePhotoClick(card) {
+                if (card.classList.contains('matched')) return;
+                if (selectedPhoto) selectedPhoto.classList.remove('selected');
+                selectedPhoto = card;
+                selectedPhoto.classList.add('selected');
+                checkMatch();
+            }
+
+            function handleNameClick(btn) {
+                if (btn.classList.contains('matched')) return;
+                if (selectedName) selectedName.classList.remove('selected');
+                selectedName = btn;
+                selectedName.classList.add('selected');
+                checkMatch();
+            }
+
+            function checkMatch() {
+                if (!selectedPhoto || !selectedName) return;
+
+                const photoId = selectedPhoto.dataset.id;
+                const nameId = selectedName.dataset.id;
+
+                if (photoId === nameId) {
+                    selectedPhoto.classList.remove('selected');
+                    selectedPhoto.classList.add('matched');
+                    selectedName.classList.remove('selected');
+                    selectedName.classList.add('matched');
+                    
+                    feedbackText.textContent = 'Correct! Neural pathway strengthened.';
+                    feedbackText.style.color = '#10b981';
+                    matchedPairs++;
+
+                    selectedPhoto = null;
+                    selectedName = null;
+
+                    if (matchedPairs === gameData.length) {
+                        feedbackText.textContent = 'Excellent! All matches found.';
+                    }
+                } else {
+                    selectedPhoto.classList.add('error');
+                    selectedName.classList.add('error');
+                    feedbackText.textContent = 'Try again...';
+                    feedbackText.style.color = '#ef4444';
+
+                    const p = selectedPhoto;
+                    const n = selectedName;
+                    
+                    setTimeout(() => {
+                        p.classList.remove('selected', 'error');
+                        n.classList.remove('selected', 'error');
+                        if (feedbackText.textContent === 'Try again...') {
+                            feedbackText.textContent = 'Select a photo and a name.';
+                            feedbackText.style.color = 'var(--accent-2)';
+                        }
+                    }, 600);
+
+                    selectedPhoto = null;
+                    selectedName = null;
+                }
+            }
+
+            if(btnResetGame) {
+                btnResetGame.addEventListener('click', initGame);
+            }
+            
+            // Initialize game on load
+            initGame();
+
+        });
+    </script>
+</body>
+</html>

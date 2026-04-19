@@ -1,0 +1,10 @@
+﻿window.presentationSlides = window.presentationSlides || {};
+window.presentationSlides['slides/17_Generative_AI_in_eHealth.js'] = `
+<div class="slide">
+    <h2>Generative AI in eHealth</h2>
+    <div class="card float-1" style="border-top: 4px solid var(--accent-1);">
+        <p>GenAI in healthcare is rapidly expanding (<span class="highlight-text">$800M → $17.2B by 2032</span>), with 75% of large organizations already adopting it.</p>
+        <p>It can reduce burnout, improve care, and support dementia caregivers. Adoption depends on usefulness, convenience, and trust.</p>
+    </div>
+</div>
+`;

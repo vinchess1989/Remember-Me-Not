@@ -1,0 +1,12 @@
+﻿window.presentationSlides = window.presentationSlides || {};
+window.presentationSlides['slides/16_The_Global_Challenge_of_Dementia.js'] = `
+<div class="slide center-content">
+    <h2>The Global Challenge of Dementia</h2>
+    <div class="grid grid-4" style="margin-top: 2rem;">
+        <div class="card float-1"><h3 style="text-align: center; margin: 0; color: var(--accent-1);">Aging population</h3></div>
+        <div class="card float-2"><h3 style="text-align: center; margin: 0; color: var(--accent-2);">Healthcare burden</h3></div>
+        <div class="card float-3"><h3 style="text-align: center; margin: 0; color: var(--accent-3);">Economic impact</h3></div>
+        <div class="card float-1"><h3 style="text-align: center; margin: 0; color: var(--text-primary);">Impact on families</h3></div>
+    </div>
+</div>
+`;

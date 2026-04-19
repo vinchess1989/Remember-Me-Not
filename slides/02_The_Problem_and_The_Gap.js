@@ -1,0 +1,23 @@
+﻿window.presentationSlides = window.presentationSlides || {};
+window.presentationSlides['slides/02_The_Problem_and_The_Gap.js'] = `
+<div class="slide">
+    <h2>The Problem & The Gap</h2>
+    <div class="grid grid-3">
+        <div class="card float-1">
+            <h3>The Patient</h3>
+            <p>Facing rapid, isolating memory degradation.</p>
+            <p>Experiencing high anxiety with abstract, clinical "brain games" that lack personal meaning.</p>
+        </div>
+        <div class="card float-2">
+            <h3>The Guardian</h3>
+            <p>Suffering from severe caregiver burnout.</p>
+            <p>Lacking daily progress visibility and bearing the massive emotional toll of being forgotten.</p>
+        </div>
+        <div class="card float-3" style="border-color: rgba(236, 72, 153, 0.3);">
+            <h3>Existing Alternatives</h3>
+            <p>Tools like <span class="highlight-text">Muistipuisto</span> (Memory Park), offline activities, or Lumosity are disjointed.</p>
+            <p>They completely lack deeply personalized, family-linked daily ecosystems.</p>
+        </div>
+    </div>
+</div>
+`;

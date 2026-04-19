@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Roadmap Slide</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap');
+
+        body {
+            margin: 0;
+            font-family: 'Inter', sans-serif;
+            background-color: #ffffff;
+            color: #333333;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            overflow: hidden;
+        }
+        .slide-container {
+            width: 100%;
+            max-width: 1600px;
+            aspect-ratio: 16 / 9;
+            padding: 40px 60px;
+            box-sizing: border-box;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            position: relative;
+            background: #ffffff;
+        }
+        .title {
+            text-align: center;
+            font-size: 3.5rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            margin-bottom: 3rem;
+            color: #111111;
+            letter-spacing: 2px;
+        }
+        .roadmap-graphic {
+            position: relative;
+            width: 100%;
+            aspect-ratio: 1200 / 250;
+            margin-bottom: 2rem;
+        }
+        .road-svg {
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            top: 0;
+            left: 0;
+            overflow: visible;
+        }
+        .marker {
+            position: absolute;
+            transform: translate(-50%, calc(-100% + 20px));
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            z-index: 10;
+            opacity: 0;
+            transition: opacity 0.5s ease, transform 0.5s cubic-bezier(0.2, 1.2, 0.4, 1);
+        }
+        .marker.visible {
+            opacity: 1;
+            transform: translate(-50%, -100%);
+        }
+        .pin {
+            width: 40px;
+            height: 40px;
+            border-radius: 50% 50% 50% 0;
+            transform: rotate(-45deg);
+            position: relative;
+            box-shadow: -3px 3px 8px rgba(0,0,0,0.2);
+            margin-bottom: 8px;
+        }
+        .pin::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 16px;
+            height: 16px;
+            background: white;
+            border-radius: 50%;
+            box-shadow: inset 0 2px 4px rgba(0,0,0,0.2);
+        }
+        .content-grid {
+            display: grid;
+            grid-template-columns: repeat(6, 1fr);
+            width: 100%;
+            flex-grow: 1;
+        }
+        .column {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            padding: 0 15px;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.5s ease, transform 0.5s cubic-bezier(0.2, 1.2, 0.4, 1);
+        }
+        .column.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .circle-number {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 1.4rem;
+            font-weight: 800;
+            margin-bottom: 15px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+        }
+        .column-title {
+            font-size: 1.05rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            margin-bottom: 12px;
+            color: #111111;
+            line-height: 1.3;
+            min-height: 2.6em;
+            display: flex;
+            align-items: center;
+        }
+        .column-text {
+            font-size: 0.9rem;
+            line-height: 1.6;
+            color: #444444;
+        }
+
+        /* Colors */
+        .color-1 { background-color: #f97316; } /* Orange */
+        .color-2 { background-color: #ef4444; } /* Red */
+        .color-3 { background-color: #10b981; } /* Green */
+        .color-4 { background-color: #3b82f6; } /* Blue */
+        .color-5 { background-color: #a855f7; } /* Purple */
+        .color-6 { background-color: #4338ca; } /* Dark Blue */
+
+        /* Marker Positions */
+        .marker-1 { left: calc(100% * 100 / 1200); top: calc(100% * 80 / 250); }
+        .marker-2 { left: calc(100% * 300 / 1200); top: calc(100% * 200 / 250); }
+        .marker-3 { left: calc(100% * 500 / 1200); top: calc(100% * 60 / 250); }
+        .marker-4 { left: calc(100% * 700 / 1200); top: calc(100% * 220 / 250); }
+        .marker-5 { left: calc(100% * 900 / 1200); top: calc(100% * 100 / 250); }
+        .marker-6 { left: calc(100% * 1100 / 1200); top: calc(100% * 180 / 250); }
+    </style>
+</head>
+<body>
+    <div class="slide-container">
+        <h1 class="title">ROADMAP</h1>
+        
+        <div class="roadmap-graphic">
+            <svg class="road-svg" viewBox="0 0 1200 250" preserveAspectRatio="none">
+                <!-- Road shadow/outline -->
+                <path d="M -20,140 C 40,140 60,80 100,80 C 180,80 220,200 300,200 C 380,200 420,60 500,60 C 580,60 620,220 700,220 C 780,220 820,100 900,100 C 980,100 1020,180 1100,180 C 1140,180 1220,140 1220,140" fill="none" stroke="#222222" stroke-width="40" stroke-linecap="round"/>
+                <!-- Road dashed line -->
+                <path d="M -20,140 C 40,140 60,80 100,80 C 180,80 220,200 300,200 C 380,200 420,60 500,60 C 580,60 620,220 700,220 C 780,220 820,100 900,100 C 980,100 1020,180 1100,180 C 1140,180 1220,140 1220,140" fill="none" stroke="#ffffff" stroke-width="4" stroke-dasharray="15, 15" stroke-linecap="round"/>
+            </svg>
+            
+            <div class="marker marker-1"><div class="pin color-1"></div></div>
+            <div class="marker marker-2"><div class="pin color-2"></div></div>
+            <div class="marker marker-3"><div class="pin color-3"></div></div>
+            <div class="marker marker-4"><div class="pin color-4"></div></div>
+            <div class="marker marker-5"><div class="pin color-5"></div></div>
+            <div class="marker marker-6"><div class="pin color-6"></div></div>
+        </div>
+
+        <div class="content-grid">
+            <div class="column"><div class="circle-number color-1">1</div><div class="column-title">STARTUP WEEKEND</div><div class="column-text">Startup Weekend enabled us to build a strong team, gain expert feedback, and validate our idea through real user insights and continuous iteration.</div></div>
+            <div class="column"><div class="circle-number color-2">2</div><div class="column-title">PROOF OF EFFECTIVENESS</div><div class="column-text">Effectiveness is ensured through a research-driven approach, incorporating input from IT experts and early caregiver validation, alongside planned usability testing and measurable outcomes in real-world care settings.</div></div>
+            <div class="column"><div class="circle-number color-3">3</div><div class="column-title">POC</div><div class="column-text">A Proof of Concept (PoC) funding application from the University of Oulu: prototype of a human-centred, AI-supported serious game application to support cognitive engagement and caregiver interaction in dementia care.</div></div>
+            <div class="column"><div class="circle-number color-4">4</div><div class="column-title">RESEARCH TO BUSINESS</div><div class="column-text">Apply for Research to Business funding. The project bridges academic research and real-world application by transforming validated insights into a scalable, commercially viable healthcare solution, and prepares the commercialization of research results into new business opportunities.</div></div>
+            <div class="column"><div class="circle-number color-5">5</div><div class="column-title">SPIN OFF COMPANY</div><div class="column-text">Following validation and pilot testing, we aim to establish a spin-off company to drive commercialization and scale the solution within the healthcare sector.</div></div>
+            <div class="column"><div class="circle-number color-6">6</div><div class="column-title">SCALE TO GLOBAL</div><div class="column-text">After establishing traction in Finland, we aim to scale internationally by adapting the solution to different healthcare systems and forming global partnerships.</div></div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const markers = document.querySelectorAll('.marker');
+            const columns = document.querySelectorAll('.column');
+            let currentStep = 0;
+            const totalSteps = markers.length;
+
+            function showStep() {
+                if (currentStep < totalSteps) {
+                    markers[currentStep].classList.add('visible');
+                    columns[currentStep].classList.add('visible');
+                    currentStep++;
+                }
+            }
+            
+            function hideStep() {
+                if (currentStep > 0) {
+                    currentStep--;
+                    markers[currentStep].classList.remove('visible');
+                    columns[currentStep].classList.remove('visible');
+                }
+            }
+
+            document.addEventListener('click', showStep);
+
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'ArrowRight' || e.key === ' ') showStep();
+                else if (e.key === 'ArrowLeft') hideStep();
+            });
+
+            // Listen for sync events from the parent Pitch Deck iframe wrapper
+            window.addEventListener('message', (event) => {
+                if (event.data && event.data.action === 'setStep') {
+                    currentStep = event.data.step;
+                    markers.forEach((m, index) => m.classList.toggle('visible', index < currentStep));
+                    columns.forEach((c, index) => c.classList.toggle('visible', index < currentStep));
+                }
+            });
+        });
+    </script>
+</body>
+</html>

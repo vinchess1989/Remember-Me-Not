@@ -1,0 +1,34 @@
+﻿window.presentationSlides = window.presentationSlides || {};
+window.presentationSlides['slides/05_The_Digital_Solution.js'] = `
+<div class="slide">
+    <h2>The Digital Solution</h2>
+    <div class="grid grid-2">
+        <div class="card float-1">
+            <h3>6 Core Patient Modules</h3>
+            <div style="margin-bottom: 1rem;">
+                <span class="module-tag">Matching Game</span>
+                <span class="module-tag">Puzzles</span>
+                <span class="module-tag">My Images</span>
+                <span class="module-tag">Therapeutic Music</span>
+                <span class="module-tag">Contacts</span>
+                <span class="module-tag">Daily Schedule</span>
+            </div>
+            <p>Familiar faces and personalized exercises rather than abstract tasks.</p>
+        </div>
+        <div class="card float-2">
+            <h3>Guardian Empowerment</h3>
+            <ul>
+                <li>Intuitive dashboards to edit and monitor content.</li>
+                <li>Real-time tracking of identification accuracy and speed.</li>
+            </ul>
+        </div>
+        <div class="card float-3" style="grid-column: 1 / -1; display: flex; align-items: center; gap: 2rem;">
+            <div style="flex: 1;">
+                <h3 style="color: var(--accent-1);">The Intelligence Layer</h3>
+                <p>Powered by a <strong>spaced-repetition algorithm</strong>.</p>
+                <p style="font-size: 1.1rem; font-style: italic;">Example: If the patient starts forgetting "Mary", the app alerts the guardian to increase exposure to Mary's photos in the modules.</p>
+            </div>
+        </div>
+    </div>
+</div>
+`;
