@@ -1,6 +1,6 @@
-﻿window.presentationSlides = window.presentationSlides || {};
+﻿﻿window.presentationSlides = window.presentationSlides || {};
 window.presentationSlides['slides/04_The_Cost_of_Alzheimers_by_Stage.js'] = `
-<div class="slide center-content">
+<div class="slide center-content" data-steps="3" onclick="document.getElementById('btn-next').click()">
     <h2>The Cost of Alzheimer's by Stage</h2>
     <p style="font-size: 1.5rem; max-width: 800px; margin: 0 auto 3rem auto;">As the disease progresses, costs <span class="highlight-text">skyrocket</span> and shift dramatically from informal family care to expensive formal institutional care.</p>
     

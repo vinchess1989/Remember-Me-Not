@@ -1,18 +1,24 @@
 ﻿window.presentationSlides = window.presentationSlides || {};
 window.presentationSlides['slides/19_Cost_of_Alzheimers_in_Finland.js'] = `
-<div class="slide center-content">
+<style>
+    .cost-finland-slide .step-item { opacity: 0; visibility: hidden; transition: opacity 0.6s ease, visibility 0.6s ease; }
+    .cost-finland-slide.step-1 .s1 { opacity: 1; visibility: visible; }
+    .cost-finland-slide.step-2 .s2 { opacity: 1; visibility: visible; }
+    .cost-finland-slide.step-3 .s3 { opacity: 1; visibility: visible; }
+</style>
+<div class="slide center-content cost-finland-slide" data-steps="3">
     <h2>Cost of Alzheimer’s in Finland</h2>
     <p style="font-size: 1.5rem; margin-bottom: 3rem;">Estimated cost per person (by select stages)</p>
     <div class="grid grid-3">
-        <div class="card stat-block float-1">
+        <div class="card stat-block float-1 step-item s1">
             <span class="stat-number" style="background: linear-gradient(to right, #34d399, #10b981); -webkit-background-clip: text; background-clip: text;">€16,530</span>
             <span class="stat-label">Early stages AD (CDRS &lt; 4)</span>
         </div>
-        <div class="card stat-block float-2">
+        <div class="card stat-block float-2 step-item s2">
             <span class="stat-number" style="background: linear-gradient(to right, #fbbf24, #f59e0b); -webkit-background-clip: text; background-clip: text;">€45,220</span>
             <span class="stat-label">Mid stages AD (CDRS 7-9)</span>
         </div>
-        <div class="card stat-block float-3">
+        <div class="card stat-block float-3 step-item s3">
             <span class="stat-number" style="background: linear-gradient(to right, #f87171, #ef4444); -webkit-background-clip: text; background-clip: text;">€72,056</span>
             <span class="stat-label">Late stages AD (CDRS ≥ 16)</span>
         </div>

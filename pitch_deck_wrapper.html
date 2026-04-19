@@ -163,18 +163,22 @@
             -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0); mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
             -webkit-mask-composite: xor; mask-composite: exclude; opacity: 0; transform: scale(0.8);
         }
-        .slide.active .donut.early { animation: fadePop 0.5s forwards 0.5s, fillRing 1.5s cubic-bezier(0.2, 0.8, 0.2, 1) forwards 0.5s; }
-        .slide.active .donut.mid { animation: fadePop 0.5s forwards 1.2s, fillRing 1.5s cubic-bezier(0.2, 0.8, 0.2, 1) forwards 1.2s; }
-        .slide.active .donut.late { animation: fadePop 0.5s forwards 1.9s, fillRing 1.5s cubic-bezier(0.2, 0.8, 0.2, 1) forwards 1.9s; }
+        .slide.active.step-1 .donut.early { animation: fadePop 0.5s forwards, fillRing 1.5s cubic-bezier(0.2, 0.8, 0.2, 1) forwards; }
+        .slide.active.step-2 .donut.early, .slide.active.step-3 .donut.early { opacity: 1; transform: scale(1); --fill: 100%; }
+        .slide.active.step-2 .donut.mid { animation: fadePop 0.5s forwards, fillRing 1.5s cubic-bezier(0.2, 0.8, 0.2, 1) forwards; }
+        .slide.active.step-3 .donut.mid { opacity: 1; transform: scale(1); --fill: 100%; }
+        .slide.active.step-3 .donut.late { animation: fadePop 0.5s forwards, fillRing 1.5s cubic-bezier(0.2, 0.8, 0.2, 1) forwards; }
         @keyframes fadePop { to { opacity: 1; transform: scale(1); } }
         @keyframes fillRing { from { --fill: 0%; } to { --fill: 100%; } }
 
         /* Legend */
         .chart-legend { display: flex; flex-direction: column; gap: 2rem; text-align: left; min-width: 300px; }
         .legend-item { opacity: 0; transform: translateX(30px); }
-        .slide.active .legend-item.early { animation: slideLeft 0.8s forwards 0.8s; }
-        .slide.active .legend-item.mid { animation: slideLeft 0.8s forwards 1.5s; }
-        .slide.active .legend-item.late { animation: slideLeft 0.8s forwards 2.2s; }
+        .slide.active.step-1 .legend-item.early { animation: slideLeft 0.8s forwards; }
+        .slide.active.step-2 .legend-item.early, .slide.active.step-3 .legend-item.early { opacity: 1; transform: translateX(0); }
+        .slide.active.step-2 .legend-item.mid { animation: slideLeft 0.8s forwards; }
+        .slide.active.step-3 .legend-item.mid { opacity: 1; transform: translateX(0); }
+        .slide.active.step-3 .legend-item.late { animation: slideLeft 0.8s forwards; }
         @keyframes slideLeft { to { opacity: 1; transform: translateX(0); } }
         .legend-title { font-size: 1.1rem; font-weight: 600; color: var(--text-secondary); }
         .legend-val { font-family: var(--font-heading); font-size: 2.5rem; font-weight: 800; margin: 0.2rem 0; }

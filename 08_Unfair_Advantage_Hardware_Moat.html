@@ -1,0 +1,25 @@
+<style>
+    .hardware-moat-slide .step-item { opacity: 0; visibility: hidden; transition: opacity 0.6s ease, visibility 0.6s ease, transform 0.6s ease; transform: translateY(20px); }
+    .hardware-moat-slide.step-1 .s1 { opacity: 1; visibility: visible; transform: translateY(0); }
+    .hardware-moat-slide.step-2 .s1, .hardware-moat-slide.step-2 .s2 { opacity: 1; visibility: visible; transform: translateY(0); }
+</style>
+<div class="slide hardware-moat-slide" data-steps="2" onclick="document.getElementById('btn-next').click()">
+    <h2>Unfair Advantage: Hardware Moat</h2>
+    <p style="font-size: 1.4rem; margin-bottom: 2rem;">Phase 4 Strategy: Linking physical senses to digital memory recall.</p>
+    
+    <div class="grid grid-2">
+        <div class="card float-1 step-item s1" style="border-top: 4px solid var(--accent-1);">
+            <h3>Smart Olfactory Integration</h3>
+            <p>App-linked Bluetooth scent diffusers to reinforce daily routines.</p>
+            <ul>
+                <li>Emitting a coffee aroma at 8 AM to wake up gently.</li>
+                <li>Releasing lavender scent at 7 PM to reduce evening "sundowning" agitation.</li>
+            </ul>
+        </div>
+        <div class="card float-2 step-item s2" style="border-top: 4px solid var(--accent-2);">
+            <h3>Tangible Reminiscence Box</h3>
+            <p>Physical objects equipped with NFC/RFID tags (e.g., a wedding veil, baby shoes, physical photos).</p>
+            <p><strong>The Magic:</strong> Picking them up triggers the nearby tablet to automatically play a related video or audio note from a loved one.</p>
+        </div>
+    </div>
+</div>
